@@ -1,73 +1,75 @@
 #include <stdio.h>
 
-struct Item
+int main()
 {
-    int value;
-    int weight;
-    float ratio;
-};
+    int obj;
+    int max_capacity;
 
-void sortItems(struct Item items[], int n)
-{
-    for (int i = 0; i < n - 1; i++)
+    printf("Enter number of objects: ");
+    scanf("%d", &obj);
+
+    printf("Enter max capacity: ");
+    scanf("%d", &max_capacity);
+
+    int profit[obj];
+    int weight[obj];
+
+    for (int i = 0; i < obj; i++)
     {
-        for (int j = 0; j < n - i - 1; j++)
+        printf("Enter the profit of the object (%d): ", i + 1);
+        scanf("%d", &profit[i]);
+
+        printf("Enter the weight of the object (%d): ", i + 1);
+        scanf("%d", &weight[i]);
+    }
+
+    float ratio[obj];
+    int visited[obj];
+
+    for (int i = 0; i < obj; i++)
+    {
+        ratio[i] = (float)profit[i] / weight[i];
+        visited[i] = 0;
+    }
+
+    int occupied_capacity = 0;
+    float profit_gain = 0.0;
+
+    while (occupied_capacity < max_capacity)
+    {
+        int max_index = -1;
+        float max_ratio = -1.0;
+
+        for (int i = 0; i < obj; i++)
         {
-            if (items[j].ratio < items[j + 1].ratio)
+            if (!visited[i] && ratio[i] > max_ratio)
             {
-                struct Item temp = items[j];
-                items[j] = items[j + 1];
-                items[j + 1] = temp;
+                max_ratio = ratio[i];
+                max_index = i;
             }
         }
-    }
-}
 
-float fractionalKnapsack(int capacity, struct Item items[], int n)
-{
-    sortItems(items, n);
-
-    float totalValue = 0.0;
-
-    for (int i = 0; i < n; i++)
-    {
-        if (capacity == 0)
+        if (max_index == -1)
         {
             break;
         }
 
-        if (items[i].weight <= capacity)
+        visited[max_index] = 1;
+
+        if (occupied_capacity + weight[max_index] <= max_capacity)
         {
-            capacity -= items[i].weight;
-            totalValue += items[i].value;
+            occupied_capacity += weight[max_index];
+            profit_gain += profit[max_index];
         }
         else
         {
-            totalValue += items[i].value * ((float)capacity / items[i].weight);
-            capacity = 0;
+            int remaining_capacity = max_capacity - occupied_capacity;
+            profit_gain += ratio[max_index] * remaining_capacity;
+            occupied_capacity = max_capacity;
         }
     }
 
-    return totalValue;
-}
-
-int main()
-{
-    struct Item items[] = {
-        {60, 10, 0},
-        {100, 20, 0},
-        {120, 30, 0}
-    };
-    int n = sizeof(items) / sizeof(items[0]);
-    int capacity = 50;
-
-    for (int i = 0; i < n; i++)
-    {
-        items[i].ratio = (float)items[i].value / items[i].weight;
-    }
-
-    float maxValue = fractionalKnapsack(capacity, items, n);
-    printf("Maximum value in Knapsack = %.2f\n", maxValue);
+    printf("\nMaximum Profit = %.2f\n", profit_gain);
 
     return 0;
 }
