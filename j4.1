@@ -1,0 +1,31 @@
+class Vehicles {
+    void start() {
+        System.out.println("Vehicle is starting...");
+    }
+
+    void stop() {
+        System.out.println("Vehicle is stopping...");
+    }
+}
+
+class Car extends Vehicles {
+    void honk() {
+        System.out.println("Car is honking...");
+    }
+}
+
+class SportsCar extends Car {
+    void turboBoost() {
+        System.out.println("Sports car is using turbo boost...");
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        SportsCar mySportsCar = new SportsCar();
+        mySportsCar.start();
+        mySportsCar.honk();
+        mySportsCar.turboBoost();
+        mySportsCar.stop();
+    }
+}
