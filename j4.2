@@ -1,0 +1,66 @@
+interface VehicleData
+{
+    public void vehicleDetail();
+
+    default void start()
+    {
+        System.out.println("Vehicle is starting...");
+    }
+
+    default void stop()
+    {
+        System.out.println("Vehicle is stopping...");
+    }
+}
+
+interface CarData
+{
+    public void carDetail();
+
+    default void honk()
+    {
+        System.out.println("Car is honking...");
+    }
+}
+
+interface SportsCarData
+{
+    public void sportsCarDetail();
+
+    default void turboBoost()
+    {
+        System.out.println("Sports car is using turbo boost...");
+    }
+}
+
+public class SportsCar implements VehicleData, CarData, SportsCarData
+{
+    public void vehicleDetail()
+    {
+        System.out.println("Vehicle Type: Sports Car");
+    }
+
+    public void carDetail()
+    {
+        System.out.println("Car Brand: Ferrari");
+    }
+
+    public void sportsCarDetail()
+    {
+        System.out.println("Model: Ferrari SF90");
+    }
+
+    public static void main(String[] args)
+    {
+        SportsCar a = new SportsCar();
+
+        a.vehicleDetail();
+        a.carDetail();
+        a.sportsCarDetail();
+
+        a.start();
+        a.honk();
+        a.turboBoost();
+        a.stop();
+    }
+}
