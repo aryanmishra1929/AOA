@@ -1,0 +1,33 @@
+class Book
+{
+    int bookId;
+    String title;
+    float price;
+
+    void insert(int id, String t, float p)
+    {
+        bookId = id;
+        title = t;
+        price = p;
+    }
+
+    void display()
+    {
+        System.out.println(bookId + " " + title + " " + price);
+    }
+
+    public static void main(String args[])
+    {
+        Book b1 = new Book();
+        Book b2 = new Book();
+        Book b3 = new Book();
+
+        b1.insert(101, "Java", 450.0f);
+        b2.insert(102, "Python", 550.0f);
+        b3.insert(103, "C++", 400.0f);
+
+        b1.display();
+        b2.display();
+        b3.display();
+    }
+}
