@@ -1,0 +1,25 @@
+class Calculate {
+
+    void area(int l, int b) {
+        int area = l * b;
+        System.out.println("Area of Rectangle is:" + area);
+    }
+
+    void area(float r) {
+        float area = 3.14f * r * r;
+        System.out.println("Area of circle is:" + area);
+    }
+
+    void area(float b, float h) {
+        float area = 0.5f * b * h;
+        System.out.println("Area of Triangle is:" + area);
+    }
+
+    public static void main(String args[]) {
+        Calculate ca = new Calculate();
+        ca.area(11, 12);
+        ca.area(17.6f);
+        ca.area(11.2f, 12);
+        ca.area(4);
+    }
+}
