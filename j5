@@ -1,0 +1,26 @@
+import java.util.Scanner;
+
+public class EasyArrayExceptionDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int[] numbers = {10, 20, 30, 40, 50};
+
+        try {
+            System.out.print("Enter array index: ");
+            String indexStr = sc.nextLine();
+
+            int index = Integer.parseInt(indexStr);
+
+            System.out.println("Element = " + numbers[index]);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Please enter a valid integer index.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index is out of bounds.");
+        } finally {
+            System.out.println("Program finished.");
+            sc.close();
+        }
+    }
+}
