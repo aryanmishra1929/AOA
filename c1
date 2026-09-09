@@ -1,0 +1,32 @@
+import struct
+
+def show(number):
+    print(f"\nNumber: {number}\n")
+
+    bits32 = f"{struct.unpack('I', struct.pack('f', number))[0]:032b}"
+
+    print("SINGLE (IEEE 754):")
+    print(f"Raw bits: {bits32}")
+    print(f"Sign: {bits32[0]}")
+    print(f"Exponent bits: {bits32[1:9]}")
+    print(f"Mantissa bits: {bits32[9:]}\n")
+
+    bits64 = f"{struct.unpack('Q', struct.pack('d', number))[0]:064b}"
+
+    print("DOUBLE (IEEE 754):")
+    print(f"Raw bits: {bits64}")
+    print(f"Sign: {bits64[0]}")
+    print(f"Exponent bits: {bits64[1:12]}")
+    print(f"Mantissa bits: {bits64[12:]}\n")
+
+while True:
+    try:
+        text = input("Enter a floating-point number (or 'exit' to quit): ")
+        
+        if text.lower() == "exit":
+            break
+            
+        show(float(text))
+        
+    except ValueError:
+        print("Invalid input. Please enter a valid floating-point number.")
