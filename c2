@@ -1,0 +1,58 @@
+4
+def twos(n, bits):
+    if n < 0:
+        return (1 << bits) + n
+    return n
+
+M = int(input("Enter Multiplicand: "))
+Q = int(input("Enter Multiplier: "))
+
+bits = max(abs(M).bit_length(), abs(Q).bit_length()) + 1
+M = twos(M, bits)
+Q = twos(Q, bits)
+
+A = 0
+Q1 = 0
+mask = (1 << bits) - 1
+
+print(f"\nUsing {bits} bits\n")
+
+for i in range(bits):
+    q0 = Q & 1
+    print(f"Iteration {i + 1}")
+    print(
+        "A =", format(A, f'0{bits}b'),
+        "Q =", format(Q, f'0{bits}b'),
+        f"Q_1 = {Q1}"
+    )
+    
+    if q0 == 1 and Q1 == 0:
+        print("Operation: A = A - M")
+        A = (A - M) & mask
+    elif q0 == 0 and Q1 == 1:
+        print("Operation: A = A + M")
+        A = (A + M) & mask
+    else:
+        print("Operation: No Operation")
+        
+    Q1 = Q & 1
+    Q = (Q >> 1) | ((A & 1) << (bits - 1))
+    
+    if A & (1 << (bits - 1)):
+        A = (A >> 1) | (1 << (bits - 1))
+    else:
+        A = A >> 1
+        
+    print("After Shift")
+    print(
+        "A =", format(A, f'0{bits}b'),
+        "Q =", format(Q, f'0{bits}b'),
+        f"Q_1 = {Q1}"
+    )
+
+result = (A << bits) | Q
+
+if result & (1 << (2 * bits - 1)):
+    result -= (1 << (2 * bits))
+    
+print("Final Product =", result)
